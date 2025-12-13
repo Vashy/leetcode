@@ -1,5 +1,10 @@
 //! By convention, root.zig is the root source file when making a library.
 const std = @import("std");
+const binary_search = @import("binary-search.zig");
+const two_sum = @import("two-sum.zig");
+
+pub const binarySearch = binary_search.binarySearch;
+pub const twoSum = two_sum.twoSum;
 
 pub fn bufferedPrint() !void {
     // Stdout is for the actual output of your application, for example if you
@@ -18,6 +23,7 @@ pub fn add(a: i32, b: i32) i32 {
     return a + b;
 }
 
-test "basic add functionality" {
-    try std.testing.expect(add(3, 7) == 10);
+test {
+    std.testing.refAllDecls(@This());
+    // or refAllDeclsRecursive
 }
