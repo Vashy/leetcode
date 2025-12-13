@@ -2,9 +2,11 @@
 const std = @import("std");
 const binary_search = @import("binary-search.zig");
 const two_sum = @import("two-sum.zig");
+const max_profit = @import("buy-and-sell-stock.zig");
 
 pub const binarySearch = binary_search.binarySearch;
 pub const twoSum = two_sum.twoSum;
+pub const maxProfit = max_profit.maxProfit;
 
 pub fn bufferedPrint() !void {
     // Stdout is for the actual output of your application, for example if you
