@@ -6,6 +6,9 @@ HASHMAP_LIB_O=./build/hashmap.o
 
 all: hashmap_lib topk_frequent valid_anagrams is_anagram
 
+lowest_common_ancestor:
+	cc $(CFLAGS) src/lowest_common_ancestor.c -o build/lowest_common_ancestor.out
+
 topk_frequent:
 	cc $(CFLAGS) src/topk_frequent.c -o build/topk_frequent.out
 
