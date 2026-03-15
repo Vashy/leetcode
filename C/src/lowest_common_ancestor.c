@@ -35,6 +35,8 @@ typedef struct TreeNode {
 void tree_node_init(TreeNode* tree, int val)
 {
     assert(tree != NULL);
+    const int ONE_BILLION = 1000000000;
+    assert(val >= -ONE_BILLION && val <= ONE_BILLION);
     tree->val = val;
     tree->left = NULL;
     tree->right = NULL;
@@ -59,43 +61,47 @@ void print_tree(TreeNode* root)
     print_tree(root->right);
 }
 
+bool has_child(TreeNode* node, TreeNode* child)
+{
+    assert(child != NULL);
+    if (node == NULL) return false;
+    if (node == child) return true;
+    return has_child(node->left, child) || has_child(node->right, child);
+}
+
 TreeNode* lowest_common_ancestor(TreeNode* root, TreeNode* p, TreeNode* q)
 {
-    assert(root != NULL && p != NULL && q != NULL);
+    assert(p != NULL && q != NULL);
 
-    TreeNode* cursor = root;
-    while (cursor != NULL)
-    {
-        TreeNode* left = root->left;
-        TreeNode* right = root->right;
-        bool q_found = false;
-        bool p_found = false;
+    if (root == NULL) return NULL;
+    if (root == p) return p;
+    if (root == q) return q;
 
-        while (left != NULL)
-        {
-            if (left->val == q->val)
-            {
-                q_found = true;
-            }
-            if (left->val == p->val)
-            {
-                p_found = true;
-            }
-            left = left->left;
-        }
-    }
-    // if (root->val == p->val && root->val == q->val)
-    //     return root;
-    //
-    // TreeNode* left_subtree = lowest_common_ancestor(root->left, p, q);
-    // TreeNode* right_subtree = lowest_common_ancestor(root->right, p, q);
+    TreeNode* left = lowest_common_ancestor(root->left, p, q);
+    TreeNode* right = lowest_common_ancestor(root->right, p, q);
+
+    if (left && right) return root;
+
+    if (left) return left;
+    if (right) return right;
 
     return NULL;
+    // if (left == p && right == q) return root;
+    // if (right == p && left == q) return root;
+
+    // if (has_child(root, p) && has_child(root, q)) return root;
+
+    // return NULL;
 }
 
 int main(int argc, char** argv)
 {
 
+    /*
+       1
+     2   3
+    4 5 6 7
+    */
     TreeNode root;
     TreeNode left;
     TreeNode right;
@@ -117,7 +123,15 @@ int main(int argc, char** argv)
     root.right->left = &right_left;
     root.right->right = &right_right;
 
-    print_tree(&root);
+    // print_tree(&root);
+    TreeNode* lca_left = lowest_common_ancestor(&root, &left_left, &left_right);
+    assert(lca_left == &left);
+
+    TreeNode* lca_right = lowest_common_ancestor(&root, &right_left, &right_right);
+    assert(lca_right == &right);
+
+    TreeNode* lca_root = lowest_common_ancestor(&root, &left_left, &right_right);
+    assert(lca_root == &root);
 
     // if (argc <= 2) {
     //     fprintf(stderr, "usage: %s {k} ...NUMS\n", argv[0]);

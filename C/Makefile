@@ -4,7 +4,7 @@ HASHMAP_LIB_C=./lib/vendor/hashmap.c/hashmap.c
 HASHMAP_LIB_H=./lib/vendor/hashmap.c/hashmap.h
 HASHMAP_LIB_O=./build/hashmap.o
 
-all: hashmap_lib topk_frequent valid_anagrams is_anagram
+all: hashmap_lib lowest_common_ancestor topk_frequent valid_anagrams is_anagram
 
 lowest_common_ancestor:
 	cc $(CFLAGS) src/lowest_common_ancestor.c -o build/lowest_common_ancestor.out
