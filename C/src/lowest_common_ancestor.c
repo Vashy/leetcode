@@ -47,26 +47,9 @@ void print_tree(TreeNode* root)
     if (root == NULL)
         return;
 
-    // printf("%d", root->val);
-    // while (root != NULL)
-    // {
-    //     if (root->left != NULL)
-    //         printf("%d", root->left->val);
-    //     if (root->right != NULL)
-    //         printf("%d", root->right->val);
-    //     root = root->left;
-    // }
     printf("%d ", root->val);
     print_tree(root->left);
     print_tree(root->right);
-}
-
-bool has_child(TreeNode* node, TreeNode* child)
-{
-    assert(child != NULL);
-    if (node == NULL) return false;
-    if (node == child) return true;
-    return has_child(node->left, child) || has_child(node->right, child);
 }
 
 TreeNode* lowest_common_ancestor(TreeNode* root, TreeNode* p, TreeNode* q)
@@ -86,12 +69,6 @@ TreeNode* lowest_common_ancestor(TreeNode* root, TreeNode* p, TreeNode* q)
     if (right) return right;
 
     return NULL;
-    // if (left == p && right == q) return root;
-    // if (right == p && left == q) return root;
-
-    // if (has_child(root, p) && has_child(root, q)) return root;
-
-    // return NULL;
 }
 
 int main(int argc, char** argv)
@@ -123,7 +100,6 @@ int main(int argc, char** argv)
     root.right->left = &right_left;
     root.right->right = &right_right;
 
-    // print_tree(&root);
     TreeNode* lca_left = lowest_common_ancestor(&root, &left_left, &left_right);
     assert(lca_left == &left);
 
@@ -133,24 +109,5 @@ int main(int argc, char** argv)
     TreeNode* lca_root = lowest_common_ancestor(&root, &left_left, &right_right);
     assert(lca_root == &root);
 
-    // if (argc <= 2) {
-    //     fprintf(stderr, "usage: %s {k} ...NUMS\n", argv[0]);
-    //     return 1;
-    // }
-    // array_int input_arr = {0};
-    // array_init(&input_arr, argc - 2);
-    //
-    // uint32_t k = atoi(argv[1]);
-    // for (int i = 2; i < argc; i++)
-    //     array_push(&input_arr, atoi(argv[i]));
-    //
-    // printf("k=%u, input_arr=", k);
-    // array_print(&input_arr, int32_t, printf("%d", element));
-    // array_int* result = topk_frequent(&input_arr, k);
-    // printf("result_arr=");
-    // array_print(result, int32_t, printf("%d", element));
-    // array_free(result);
-    // free(result);
-    // array_free(&input_arr);
     return 0;
 }
